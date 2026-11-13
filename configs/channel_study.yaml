@@ -1,0 +1,80 @@
+# Config for the channel x condition x CNN-backbone comparison study
+# (scripts/run_experiment_grid.py). Separate from configs/default.yaml on
+# purpose: default.yaml is left untouched so the original EC / 19-channel /
+# CWT / ResNet50 / 5-fold results already reported are reproducible exactly
+# as before. This file is the *base* config for the new study; the grid
+# script overrides `data.condition`, `data.cache_subdir`, and `model.backbone`
+# per combination at runtime -- the values below are its defaults/fallback
+# when run directly on a single combination.
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  condition: "EC"                  # overridden per-run by run_experiment_grid.py (EC / EO / TASK)
+  cache_subdir: "EC_study"         # keeps this study's cache separate from the original run's;
+                                    # overridden per-run to "<condition>_study" by the grid script
+  mdd_prefix: "MDD"
+  hc_prefix: "H"
+
+eeg:
+  sampling_rate_hz: 256
+  channels:                        # mentor-requested set: Fp1/Fp2 (frontal-polar, already used for the
+    - Fp1                          # EOG-proxy) plus F3/F4 -- the closest electrodes this dataset actually
+    - Fp2                          # has to "F1/F2" (F1/F2 don't exist in this montage; see report.md).
+    - F3                           # F3/F4 are the standard electrodes for frontal alpha asymmetry, the
+    - F4                           # most literature-backed EEG depression marker -- directly addressing
+                                    # the channel-averaging limitation documented in the original pipeline.
+
+preprocessing:
+  bandpass_low_hz: 0.5
+  bandpass_high_hz: 45.0
+  notch_hz: 50.0
+  ica_n_components: 0.99
+  ica_method: "fastica"
+  ica_random_state: 42
+  eog_proxy_channels: ["Fp1", "Fp2"]
+  reference: "average"
+
+epoching:
+  window_sec: 4.0
+  overlap: 0.5
+  reject_peak_to_peak_uv: 150.0
+
+tfd:
+  transform: "spwvd"               # switched from "cwt": this study uses SPWVD throughout, per spec
+  cwt_wavelet: "cmor1.5-1.0"
+  freq_min_hz: 1.0
+  freq_max_hz: 45.0
+  n_freq_bins: 64
+  spwvd_freq_bins: 64
+  spwvd_time_bins: 64
+  image_size: 224
+  # Channel handling for this study is NOT "average all channels" like
+  # default.yaml -- run_experiment_grid.py generates 5 image variants per
+  # epoch from this same 4-channel preprocessed array: one per individual
+  # channel (Fp1, Fp2, F3, F4) plus one "combined" variant (the 4 channels
+  # averaged, same strategy as the original pipeline). This is what answers
+  # "which single channel works best, and does averaging help or hurt".
+
+model:
+  backbone: "resnet50"             # overridden per-run by run_experiment_grid.py; see src/model.py
+                                    # SUPPORTED_BACKBONES for all 5 compared: resnet50, resnet18, vgg16,
+                                    # densenet121, mobilenet_v2
+  pretrained: true
+  freeze_until: ""                 # "" = use src/model.py's DEFAULT_FREEZE_UNTIL for the chosen backbone
+  dropout: 0.3
+  head_hidden_dim: 128
+
+training:
+  k_folds: 10                      # upgraded from 5 -> 10, per spec
+  val_fraction: 0.15
+  batch_size: 32
+  epochs: 20
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 5
+  seed: 42
+  num_workers: 0                   # 0 on Windows/CPU: multiprocessing DataLoader workers are unreliable there
+
+output:
+  results_dir: "results_v2"        # separate from the original run's "results/", per spec

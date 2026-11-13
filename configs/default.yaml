@@ -1,0 +1,87 @@
+# Default configuration for the EEG -> TFD image -> CNN depression-detection pipeline.
+# Every value here is deliberately exposed so nothing is hardcoded in the source files.
+# See README.md for a plain-English explanation of each stage.
+
+data:
+  raw_dir: "data/raw"              # folder of *.edf files (Mumtaz EEG dataset)
+  processed_dir: "data/processed"  # cache for epochs, TFD images, metadata
+  condition: "EC"                  # eyes-closed resting state only, per this version's scope
+  mdd_prefix: "MDD"                # filename prefix identifying MDD subjects
+  hc_prefix: "H"                   # filename prefix identifying healthy-control subjects
+
+eeg:
+  sampling_rate_hz: 256
+  channels:                        # standard 10-20 montage, selected by name (not index) -
+    - Fp1                          # file channel layouts differ between subjects/groups
+    - F3
+    - C3
+    - P3
+    - O1
+    - F7
+    - T3
+    - T5
+    - Fz
+    - Fp2
+    - F4
+    - C4
+    - P4
+    - O2
+    - F8
+    - T4
+    - T6
+    - Cz
+    - Pz
+
+preprocessing:
+  bandpass_low_hz: 0.5
+  bandpass_high_hz: 45.0
+  notch_hz: 50.0                   # Mumtaz dataset recorded in Malaysia -> 50 Hz mains hum
+  ica_n_components: 0.99           # fraction of variance to keep before ICA
+  ica_method: "fastica"
+  ica_random_state: 42
+  # No dedicated EOG/EMG channel exists in this dataset, so eye-blink and muscle
+  # ICA components are flagged using proxy channels/heuristics instead of true
+  # EOG-channel regression. See src/preprocessing.py for details.
+  eog_proxy_channels: ["Fp1", "Fp2"]
+  reference: "average"
+
+epoching:
+  window_sec: 4.0                  # config parameter, per spec
+  overlap: 0.5                     # config parameter, per spec
+  reject_peak_to_peak_uv: 150.0    # simple amplitude-based rejection of residual bad epochs
+
+tfd:
+  transform: "cwt"                 # "cwt" (default) or "spwvd"
+  cwt_wavelet: "cmor1.5-1.0"       # complex Morlet wavelet (PyWavelets naming)
+  freq_min_hz: 1.0
+  freq_max_hz: 45.0
+  n_freq_bins: 64
+  spwvd_freq_bins: 64
+  spwvd_time_bins: 64
+  # Multi-channel handling: per-channel scalograms are averaged into a single
+  # 2D image (channel-selection-free), then resized and replicated to 3 channels
+  # for the pretrained RGB backbone. See README "Assumptions" for the rationale
+  # and trade-offs of this choice.
+  image_size: 224
+
+model:
+  backbone: "resnet50"             # "resnet50" (default) or "vgg16", swappable
+  pretrained: true
+  freeze_until: "layer4"           # resnet50: unfreeze layer4 onward; vgg16: last conv block
+  dropout: 0.3
+  head_hidden_dim: 128
+
+training:
+  k_folds: 5                       # subject-wise StratifiedGroupKFold (use 10 if subject count allows)
+  val_fraction: 0.15                # subject-level slice carved out of each fold's training subjects,
+                                     # used only for early stopping -- the test fold is never touched by it
+  batch_size: 32
+  epochs: 20
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  early_stopping_patience: 5
+  seed: 42
+  num_workers: 2
+
+output:
+  results_dir: "results"
