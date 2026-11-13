@@ -1,0 +1,2 @@
+condition,channel_variant,model,n_folds,n_epochs_trained,n_test_epochs_total,accuracy_mean,accuracy_std,precision_mean,precision_std,recall_mean,recall_std,f1_mean,f1_std,seconds
+EC,combined,mobilenet_v2,10,20,399,0.7933333333333333,0.153850061000447,0.8540399796282149,0.14848684927714748,0.7523809523809524,0.2416871912466575,0.776522935358819,0.17356700609475786,1443.2
