@@ -23,6 +23,17 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+build/
+dist/
+
+# Local secrets
+.env
+.env.*
+!.env.example
 
 # Local secrets and credentials
 .env

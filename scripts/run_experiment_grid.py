@@ -42,6 +42,8 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
+import json
 import sys
 import time
 from pathlib import Path
@@ -95,9 +97,134 @@ def _channel_variants(cfg, requested: list[str]) -> list[tuple[str, list[int] | 
     return variants
 
 
+def _plain_config(value):
+    if hasattr(value, "__dict__"):
+        return {key: _plain_config(item) for key, item in vars(value).items()}
+    if isinstance(value, dict):
+        return {key: _plain_config(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_plain_config(item) for item in value]
+    return value
+
+
+def _metadata_fingerprint(metadata: pd.DataFrame) -> str:
+    columns = ["subject_id", "label", "epoch_index"]
+    stable_metadata = metadata[columns].sort_values(columns).reset_index(drop=True)
+    digest = hashlib.sha256(pd.util.hash_pandas_object(stable_metadata, index=False).values.tobytes())
+    for path in sorted(metadata["epoch_path"].dropna().unique()):
+        stat = Path(path).stat()
+        digest.update(f"{path}|{stat.st_size}|{stat.st_mtime_ns}".encode("utf-8"))
+    return digest.hexdigest()
+
+
+def _resume_identity(cfg, condition: str, variant_tag: str, model_name: str,
+                     epoch_metadata: pd.DataFrame, pilot: bool, pilot_max_epochs_per_subject: int) -> dict:
+    sections = ("data", "eeg", "preprocessing", "epoching", "tfd", "model", "training")
+    return {
+        "condition": condition,
+        "channel_variant": variant_tag,
+        "model": model_name,
+        "config": {name: _plain_config(getattr(cfg, name)) for name in sections},
+        "pilot": pilot,
+        "pilot_max_epochs_per_subject": pilot_max_epochs_per_subject if pilot else None,
+        "metadata_sha256": _metadata_fingerprint(epoch_metadata),
+    }
+
+
+def _expected_fold_sizes(metadata: pd.DataFrame, k_folds: int, seed: int) -> list[tuple[int, int]]:
+    return [
+        (len(test_meta), test_meta["subject_id"].nunique())
+        for _, test_meta in make_subject_kfold_splits(metadata, k_folds, seed)
+    ]
+
+
+def _load_completed_row(combo_dir: Path, identity: dict, expected_fold_sizes: list[tuple[int, int]],
+                        k_folds: int, epochs: int) -> tuple[dict, bool] | None:
+    metrics_path = combo_dir / "metrics.json"
+    folds_path = combo_dir / "per_fold_metrics.csv"
+    manifest_path = combo_dir / "resume.json"
+    if not metrics_path.is_file() or not folds_path.is_file():
+        return None
+
+    try:
+        with metrics_path.open("r", encoding="utf-8") as handle:
+            metrics = json.load(handle)
+        fold_csv = pd.read_csv(folds_path)
+    except (OSError, ValueError, TypeError):
+        return None
+
+    per_fold = metrics.get("per_fold")
+    summary = metrics.get("summary_mean_std")
+    if not isinstance(per_fold, list) or not isinstance(summary, dict):
+        return None
+    if len(per_fold) != k_folds or len(fold_csv) != k_folds:
+        return None
+
+    try:
+        observed_fold_sizes = [
+            (int(fold["n_test_epochs"]), int(fold["n_test_subjects"]))
+            for fold in per_fold
+        ]
+    except (KeyError, TypeError, ValueError):
+        return None
+    if observed_fold_sizes != expected_fold_sizes:
+        return None
+
+    legacy = not manifest_path.is_file()
+    elapsed_seconds = None
+    if not legacy:
+        try:
+            with manifest_path.open("r", encoding="utf-8") as handle:
+                manifest = json.load(handle)
+        except (OSError, ValueError, TypeError):
+            return None
+        if manifest.get("identity") != identity:
+            return None
+        elapsed_seconds = manifest.get("seconds")
+    else:
+        old_config = metrics.get("config", {})
+        expected_config = identity["config"]
+        if (
+            old_config.get("transform") != expected_config["tfd"].get("transform")
+            or old_config.get("backbone") != identity["model"]
+            or old_config.get("k_folds") != k_folds
+            or old_config.get("window_sec") != expected_config["epoching"].get("window_sec")
+            or old_config.get("overlap") != expected_config["epoching"].get("overlap")
+        ):
+            return None
+
+    required_metrics = ("accuracy", "precision", "recall", "f1")
+    if any(f"{name}_mean" not in summary or f"{name}_std" not in summary for name in required_metrics):
+        return None
+
+    row = {
+        "condition": identity["condition"],
+        "channel_variant": identity["channel_variant"],
+        "model": identity["model"],
+        "n_folds": k_folds,
+        "n_epochs_trained": epochs,
+        "n_test_epochs_total": sum(count for count, _ in observed_fold_sizes),
+        "seconds": elapsed_seconds,
+    }
+    row.update(summary)
+    return row, legacy
+
+
+def _write_resume_manifest(combo_dir: Path, identity: dict, seconds: float) -> None:
+    manifest_path = combo_dir / "resume.json"
+    temporary_path = combo_dir / "resume.json.tmp"
+    temporary_path.write_text(
+        json.dumps({"identity": identity, "seconds": seconds}, indent=2),
+        encoding="utf-8",
+    )
+    temporary_path.replace(manifest_path)
+
+
 def run_combo(base_cfg, condition: str, variant_tag: str, channel_indices, model_name: str,
               epoch_metadata: pd.DataFrame, k_folds: int, epochs: int, device, results_root: Path,
-              save_checkpoints: bool) -> dict:
+              save_checkpoints: bool, resume: bool, pilot: bool,
+              pilot_max_epochs_per_subject: int) -> tuple[dict, bool, bool]:
+    started_at = time.time()
     cfg = copy.deepcopy(base_cfg)
     cfg.data.condition = condition
     cfg.data.cache_subdir = f"{condition}_study"
@@ -110,6 +237,20 @@ def run_combo(base_cfg, condition: str, variant_tag: str, channel_indices, model
     tfd_metadata = build_tfd_dataset(
         cfg, epoch_metadata, channel_indices=channel_indices, variant_tag=variant_tag
     )
+    identity = _resume_identity(
+        cfg, condition, variant_tag, model_name, epoch_metadata,
+        pilot, pilot_max_epochs_per_subject,
+    )
+
+    if resume:
+        completed = _load_completed_row(
+            combo_dir, identity,
+            _expected_fold_sizes(tfd_metadata, k_folds, cfg.training.seed),
+            k_folds, epochs,
+        )
+        if completed is not None:
+            row, legacy = completed
+            return row, True, legacy
 
     fold_metrics = []
     for fold_idx, (train_meta, test_meta) in enumerate(
@@ -137,7 +278,9 @@ def run_combo(base_cfg, condition: str, variant_tag: str, channel_indices, model
         "n_test_epochs_total": sum(m["n_test_epochs"] for m in fold_metrics),
     }
     row.update(summary["summary_mean_std"])
-    return row
+    row["seconds"] = round(time.time() - started_at, 1)
+    _write_resume_manifest(combo_dir, identity, row["seconds"])
+    return row, False, False
 
 
 def _leaderboard_chart(df: pd.DataFrame, group_col: str, out_path: Path, title: str) -> None:
@@ -179,6 +322,8 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=None, help="Overrides training.epochs from the config.")
     parser.add_argument("--force-preprocess", action="store_true")
     parser.add_argument("--force-tfd", action="store_true")
+    parser.add_argument("--resume", action="store_true",
+                        help="Skip completed combinations whose results match the current data/config.")
     parser.add_argument("--save-checkpoints", action="store_true",
                          help="Save every fold's model weights. Off by default for the full grid "
                               "(disk use scales with conditions x variants x models x k_folds).")
@@ -191,6 +336,8 @@ def main() -> None:
     parser.add_argument("--pilot-folds", type=int, default=3)
     parser.add_argument("--pilot-training-epochs", type=int, default=2)
     args = parser.parse_args()
+    if args.resume and (args.force_preprocess or args.force_tfd):
+        parser.error("--resume cannot be combined with --force-preprocess or --force-tfd")
 
     base_cfg = load_config(args.config)
     set_seed(base_cfg.training.seed)
@@ -236,15 +383,18 @@ def main() -> None:
             for model_name in models:
                 combo_label = f"{condition} / {variant_tag} / {model_name}"
                 print(f"\n[grid] --- {combo_label} ---")
-                t0 = time.time()
-                row = run_combo(
+                row, skipped, legacy = run_combo(
                     cond_cfg, condition, variant_tag, channel_indices, model_name,
                     epoch_metadata, k_folds, epochs, device, results_root, args.save_checkpoints,
+                    args.resume, args.pilot, args.pilot_max_epochs_per_subject,
                 )
-                row["seconds"] = round(time.time() - t0, 1)
                 rows.append(row)
-                print(f"[grid] {combo_label}: accuracy={row['accuracy_mean']:.4f} "
-                      f"+/- {row['accuracy_std']:.4f} ({row['seconds']:.0f}s)")
+                if skipped:
+                    legacy_note = " (legacy metrics; training settings were not fully recorded)" if legacy else ""
+                    print(f"[grid] RESUME: skipped completed {combo_label}{legacy_note}")
+                else:
+                    print(f"[grid] {combo_label}: accuracy={row['accuracy_mean']:.4f} "
+                          f"+/- {row['accuracy_std']:.4f} ({row['seconds']:.0f}s)")
 
     leaderboard = pd.DataFrame(rows)
     leaderboard_path = results_root / "leaderboard.csv"
