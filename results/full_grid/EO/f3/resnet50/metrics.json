@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "resnet50",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          322,
+          0
+        ],
+        [
+          0,
+          442
+        ]
+      ],
+      "n_test_epochs": 764,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.8192771084337349,
+      "precision": 0.7466216216216216,
+      "recall": 1.0,
+      "f1": 0.8549323017408124,
+      "confusion_matrix": [
+        [
+          238,
+          150
+        ],
+        [
+          0,
+          442
+        ]
+      ],
+      "n_test_epochs": 830,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8465499485066942,
+      "precision": 0.7853881278538812,
+      "recall": 0.9847328244274809,
+      "f1": 0.8738357324301439,
+      "confusion_matrix": [
+        [
+          306,
+          141
+        ],
+        [
+          8,
+          516
+        ]
+      ],
+      "n_test_epochs": 971,
+      "n_test_subjects": 7
+    },
+    {
+      "accuracy": 0.8584905660377359,
+      "precision": 0.7863554757630161,
+      "recall": 0.9977220956719818,
+      "f1": 0.8795180722891566,
+      "confusion_matrix": [
+        [
+          290,
+          119
+        ],
+        [
+          1,
+          438
+        ]
+      ],
+      "n_test_epochs": 848,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9019165727170236,
+      "precision": 0.91725768321513,
+      "recall": 0.8818181818181818,
+      "f1": 0.899188876013905,
+      "confusion_matrix": [
+        [
+          412,
+          35
+        ],
+        [
+          52,
+          388
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          445,
+          0
+        ],
+        [
+          0,
+          528
+        ]
+      ],
+      "n_test_epochs": 973,
+      "n_test_subjects": 7
+    },
+    {
+      "accuracy": 0.9920993227990971,
+      "precision": 0.984304932735426,
+      "recall": 1.0,
+      "f1": 0.992090395480226,
+      "confusion_matrix": [
+        [
+          440,
+          7
+        ],
+        [
+          0,
+          439
+        ]
+      ],
+      "n_test_epochs": 886,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.6644067796610169,
+      "precision": 0.6620689655172414,
+      "recall": 0.6575342465753424,
+      "f1": 0.6597938144329897,
+      "confusion_matrix": [
+        [
+          300,
+          147
+        ],
+        [
+          150,
+          288
+        ]
+      ],
+      "n_test_epochs": 885,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8458942632170978,
+      "precision": 0.797270955165692,
+      "recall": 0.9253393665158371,
+      "f1": 0.856544502617801,
+      "confusion_matrix": [
+        [
+          343,
+          104
+        ],
+        [
+          33,
+          409
+        ]
+      ],
+      "n_test_epochs": 889,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8192090395480226,
+      "precision": 0.9964285714285714,
+      "recall": 0.636986301369863,
+      "f1": 0.7771587743732591,
+      "confusion_matrix": [
+        [
+          446,
+          1
+        ],
+        [
+          159,
+          279
+        ]
+      ],
+      "n_test_epochs": 885,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.8747843600920422,
+    "accuracy_std": 0.09908712095925684,
+    "precision_mean": 0.867569633330058,
+    "precision_std": 0.11955193506599522,
+    "recall_mean": 0.9084133016378686,
+    "recall_std": 0.13599997512212883,
+    "f1_mean": 0.8793062469378293,
+    "f1_std": 0.10100075194834536
+  },
+  "summed_confusion_matrix": [
+    [
+      3542,
+      704
+    ],
+    [
+      403,
+      4169
+    ]
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "identity": {
+    "condition": "EO",
+    "channel_variant": "combined",
+    "model": "resnet18",
+    "config": {
+      "data": {
+        "raw_dir": "data/raw",
+        "processed_dir": "data/processed",
+        "condition": "EO",
+        "cache_subdir": "EO_study",
+        "mdd_prefix": "MDD",
+        "hc_prefix": "H"
+      },
+      "eeg": {
+        "sampling_rate_hz": 256,
+        "channels": [
+          "Fp1",
+          "Fp2",
+          "F3",
+          "F4"
+        ]
+      },
+      "preprocessing": {
+        "bandpass_low_hz": 0.5,
+        "bandpass_high_hz": 45.0,
+        "notch_hz": 50.0,
+        "ica_n_components": 0.99,
+        "ica_method": "fastica",
+        "ica_random_state": 42,
+        "eog_proxy_channels": [
+          "Fp1",
+          "Fp2"
+        ],
+        "reference": "average"
+      },
+      "epoching": {
+        "window_sec": 4.0,
+        "overlap": 0.5,
+        "reject_peak_to_peak_uv": 150.0
+      },
+      "tfd": {
+        "transform": "spwvd",
+        "cwt_wavelet": "cmor1.5-1.0",
+        "freq_min_hz": 1.0,
+        "freq_max_hz": 45.0,
+        "n_freq_bins": 64,
+        "spwvd_freq_bins": 64,
+        "spwvd_time_bins": 64,
+        "image_size": 224
+      },
+      "model": {
+        "backbone": "resnet18",
+        "pretrained": true,
+        "freeze_until": "",
+        "dropout": 0.3,
+        "head_hidden_dim": 128
+      },
+      "training": {
+        "k_folds": 10,
+        "val_fraction": 0.15,
+        "batch_size": 32,
+        "epochs": 20,
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0001,
+        "early_stopping_patience": 5,
+        "seed": 42,
+        "num_workers": 0
+      }
+    },
+    "pilot": false,
+    "pilot_max_epochs_per_subject": null,
+    "metadata_sha256": "1b5ef6c32464be912d8c9879d57becc73b764a3b6c458ef0b16ae5a7673822cc"
+  },
+  "seconds": 1007.2
+}

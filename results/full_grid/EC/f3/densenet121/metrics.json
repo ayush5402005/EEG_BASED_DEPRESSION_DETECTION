@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "densenet121",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 0.8043981481481481,
+      "precision": 0.7995642701525054,
+      "recall": 0.8265765765765766,
+      "f1": 0.8128460686600222,
+      "confusion_matrix": [
+        [
+          328,
+          92
+        ],
+        [
+          77,
+          367
+        ]
+      ],
+      "n_test_epochs": 864,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9007891770011274,
+      "precision": 0.8938053097345132,
+      "recall": 0.9099099099099099,
+      "f1": 0.9017857142857143,
+      "confusion_matrix": [
+        [
+          395,
+          48
+        ],
+        [
+          40,
+          404
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.875,
+      "precision": 0.7949790794979079,
+      "recall": 0.9844559585492227,
+      "f1": 0.8796296296296297,
+      "confusion_matrix": [
+        [
+          348,
+          98
+        ],
+        [
+          6,
+          380
+        ]
+      ],
+      "n_test_epochs": 832,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8002322880371661,
+      "precision": 0.7175843694493783,
+      "recall": 0.9688249400479616,
+      "f1": 0.8244897959183674,
+      "confusion_matrix": [
+        [
+          285,
+          159
+        ],
+        [
+          13,
+          404
+        ]
+      ],
+      "n_test_epochs": 861,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9922077922077922,
+      "precision": 0.995475113122172,
+      "recall": 0.990990990990991,
+      "f1": 0.9932279909706546,
+      "confusion_matrix": [
+        [
+          324,
+          2
+        ],
+        [
+          4,
+          440
+        ]
+      ],
+      "n_test_epochs": 770,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9613196814562003,
+      "precision": 0.9950738916256158,
+      "recall": 0.926605504587156,
+      "f1": 0.9596199524940617,
+      "confusion_matrix": [
+        [
+          441,
+          2
+        ],
+        [
+          32,
+          404
+        ]
+      ],
+      "n_test_epochs": 879,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.6026845637583893,
+      "precision": 0.5046296296296297,
+      "recall": 0.36577181208053694,
+      "f1": 0.42412451361867703,
+      "confusion_matrix": [
+        [
+          340,
+          107
+        ],
+        [
+          189,
+          109
+        ]
+      ],
+      "n_test_epochs": 745,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.8922558922558923,
+      "precision": 0.9915254237288136,
+      "recall": 0.7905405405405406,
+      "f1": 0.8796992481203008,
+      "confusion_matrix": [
+        [
+          444,
+          3
+        ],
+        [
+          93,
+          351
+        ]
+      ],
+      "n_test_epochs": 891,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          336,
+          0
+        ],
+        [
+          0,
+          437
+        ]
+      ],
+      "n_test_epochs": 773,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9965792474344356,
+      "precision": 0.9976744186046511,
+      "recall": 0.9953596287703016,
+      "f1": 0.9965156794425087,
+      "confusion_matrix": [
+        [
+          445,
+          1
+        ],
+        [
+          2,
+          429
+        ]
+      ],
+      "n_test_epochs": 877,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.8825466790299151,
+    "accuracy_std": 0.11692695165970604,
+    "precision_mean": 0.8690311505545187,
+    "precision_std": 0.15723528127294878,
+    "recall_mean": 0.8759035862053197,
+    "recall_std": 0.18357949703030743,
+    "f1_mean": 0.8671938593139936,
+    "f1_std": 0.16167380222086347
+  },
+  "summed_confusion_matrix": [
+    [
+      3686,
+      512
+    ],
+    [
+      456,
+      3725
+    ]
+  ]
+}

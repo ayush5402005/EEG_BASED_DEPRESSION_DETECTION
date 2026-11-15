@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "densenet121",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 0.8298611111111112,
+      "precision": 0.8429561200923787,
+      "recall": 0.8220720720720721,
+      "f1": 0.8323831242873432,
+      "confusion_matrix": [
+        [
+          352,
+          68
+        ],
+        [
+          79,
+          365
+        ]
+      ],
+      "n_test_epochs": 864,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9007891770011274,
+      "precision": 0.978494623655914,
+      "recall": 0.8198198198198198,
+      "f1": 0.8921568627450981,
+      "confusion_matrix": [
+        [
+          435,
+          8
+        ],
+        [
+          80,
+          364
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.7740384615384616,
+      "precision": 0.6724738675958188,
+      "recall": 1.0,
+      "f1": 0.8041666666666667,
+      "confusion_matrix": [
+        [
+          258,
+          188
+        ],
+        [
+          0,
+          386
+        ]
+      ],
+      "n_test_epochs": 832,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.7955865272938444,
+      "precision": 0.7045840407470289,
+      "recall": 0.9952038369304557,
+      "f1": 0.8250497017892644,
+      "confusion_matrix": [
+        [
+          270,
+          174
+        ],
+        [
+          2,
+          415
+        ]
+      ],
+      "n_test_epochs": 861,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.990909090909091,
+      "precision": 0.9910112359550561,
+      "recall": 0.9932432432432432,
+      "f1": 0.9921259842519685,
+      "confusion_matrix": [
+        [
+          322,
+          4
+        ],
+        [
+          3,
+          441
+        ]
+      ],
+      "n_test_epochs": 770,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9533560864618885,
+      "precision": 1.0,
+      "recall": 0.9059633027522935,
+      "f1": 0.950661853188929,
+      "confusion_matrix": [
+        [
+          443,
+          0
+        ],
+        [
+          41,
+          395
+        ]
+      ],
+      "n_test_epochs": 879,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.5771812080536913,
+      "precision": 0.44785276073619634,
+      "recall": 0.24496644295302014,
+      "f1": 0.31670281995661603,
+      "confusion_matrix": [
+        [
+          357,
+          90
+        ],
+        [
+          225,
+          73
+        ]
+      ],
+      "n_test_epochs": 745,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.7811447811447811,
+      "precision": 0.9770114942528736,
+      "recall": 0.5743243243243243,
+      "f1": 0.723404255319149,
+      "confusion_matrix": [
+        [
+          441,
+          6
+        ],
+        [
+          189,
+          255
+        ]
+      ],
+      "n_test_epochs": 891,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          336,
+          0
+        ],
+        [
+          0,
+          437
+        ]
+      ],
+      "n_test_epochs": 773,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          446,
+          0
+        ],
+        [
+          0,
+          431
+        ]
+      ],
+      "n_test_epochs": 877,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.8602866443513996,
+    "accuracy_std": 0.12859507497395983,
+    "precision_mean": 0.8614384143035266,
+    "precision_std": 0.18252449989305672,
+    "recall_mean": 0.835559304209523,
+    "recall_std": 0.23535140344731323,
+    "f1_mean": 0.8336651268205035,
+    "f1_std": 0.19439841956514875
+  },
+  "summed_confusion_matrix": [
+    [
+      3660,
+      538
+    ],
+    [
+      619,
+      3562
+    ]
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "densenet121",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 0.7685185185185185,
+      "precision": 0.7469635627530364,
+      "recall": 0.831081081081081,
+      "f1": 0.7867803837953091,
+      "confusion_matrix": [
+        [
+          295,
+          125
+        ],
+        [
+          75,
+          369
+        ]
+      ],
+      "n_test_epochs": 864,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9503945885005637,
+      "precision": 0.9975124378109452,
+      "recall": 0.9031531531531531,
+      "f1": 0.9479905437352246,
+      "confusion_matrix": [
+        [
+          442,
+          1
+        ],
+        [
+          43,
+          401
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.7415865384615384,
+      "precision": 0.6422628951747088,
+      "recall": 1.0,
+      "f1": 0.7821681864235056,
+      "confusion_matrix": [
+        [
+          231,
+          215
+        ],
+        [
+          0,
+          386
+        ]
+      ],
+      "n_test_epochs": 832,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8095238095238095,
+      "precision": 0.7304189435336976,
+      "recall": 0.9616306954436451,
+      "f1": 0.8302277432712215,
+      "confusion_matrix": [
+        [
+          296,
+          148
+        ],
+        [
+          16,
+          401
+        ]
+      ],
+      "n_test_epochs": 861,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          326,
+          0
+        ],
+        [
+          0,
+          444
+        ]
+      ],
+      "n_test_epochs": 770,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.8953356086461889,
+      "precision": 1.0,
+      "recall": 0.7889908256880734,
+      "f1": 0.882051282051282,
+      "confusion_matrix": [
+        [
+          443,
+          0
+        ],
+        [
+          92,
+          344
+        ]
+      ],
+      "n_test_epochs": 879,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.6093959731543624,
+      "precision": 0.51440329218107,
+      "recall": 0.41946308724832215,
+      "f1": 0.46210720887245843,
+      "confusion_matrix": [
+        [
+          329,
+          118
+        ],
+        [
+          173,
+          125
+        ]
+      ],
+      "n_test_epochs": 745,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9102132435465768,
+      "precision": 0.9866310160427807,
+      "recall": 0.831081081081081,
+      "f1": 0.902200488997555,
+      "confusion_matrix": [
+        [
+          442,
+          5
+        ],
+        [
+          75,
+          369
+        ]
+      ],
+      "n_test_epochs": 891,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9987063389391979,
+      "precision": 1.0,
+      "recall": 0.9977116704805492,
+      "f1": 0.9988545246277205,
+      "confusion_matrix": [
+        [
+          336,
+          0
+        ],
+        [
+          1,
+          436
+        ]
+      ],
+      "n_test_epochs": 773,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.8289623717217788,
+      "precision": 0.7418244406196214,
+      "recall": 1.0,
+      "f1": 0.8517786561264822,
+      "confusion_matrix": [
+        [
+          296,
+          150
+        ],
+        [
+          0,
+          431
+        ]
+      ],
+      "n_test_epochs": 877,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.8512636991012534,
+    "accuracy_std": 0.1177801101192277,
+    "precision_mean": 0.836001658811586,
+    "precision_std": 0.17273284616049106,
+    "recall_mean": 0.8733111594175906,
+    "recall_std": 0.16999156140693447,
+    "f1_mean": 0.8444159017900759,
+    "f1_std": 0.14736111031640192
+  },
+  "summed_confusion_matrix": [
+    [
+      3436,
+      762
+    ],
+    [
+      475,
+      3706
+    ]
+  ]
+}

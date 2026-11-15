@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "vgg16",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 0.8136574074074074,
+      "precision": 0.8082788671023965,
+      "recall": 0.8355855855855856,
+      "f1": 0.8217054263565892,
+      "confusion_matrix": [
+        [
+          332,
+          88
+        ],
+        [
+          73,
+          371
+        ]
+      ],
+      "n_test_epochs": 864,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9177001127395716,
+      "precision": 0.8673267326732673,
+      "recall": 0.9864864864864865,
+      "f1": 0.9230769230769231,
+      "confusion_matrix": [
+        [
+          376,
+          67
+        ],
+        [
+          6,
+          438
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8701923076923077,
+      "precision": 0.7995689655172413,
+      "recall": 0.961139896373057,
+      "f1": 0.8729411764705882,
+      "confusion_matrix": [
+        [
+          353,
+          93
+        ],
+        [
+          15,
+          371
+        ]
+      ],
+      "n_test_epochs": 832,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.7700348432055749,
+      "precision": 0.6809917355371901,
+      "recall": 0.988009592326139,
+      "f1": 0.8062622309197651,
+      "confusion_matrix": [
+        [
+          251,
+          193
+        ],
+        [
+          5,
+          412
+        ]
+      ],
+      "n_test_epochs": 861,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9701298701298702,
+      "precision": 0.970917225950783,
+      "recall": 0.9774774774774775,
+      "f1": 0.9741863075196409,
+      "confusion_matrix": [
+        [
+          313,
+          13
+        ],
+        [
+          10,
+          434
+        ]
+      ],
+      "n_test_epochs": 770,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.8543799772468714,
+      "precision": 0.9782608695652174,
+      "recall": 0.7224770642201835,
+      "f1": 0.8311345646437994,
+      "confusion_matrix": [
+        [
+          436,
+          7
+        ],
+        [
+          121,
+          315
+        ]
+      ],
+      "n_test_epochs": 879,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.5959731543624162,
+      "precision": 0.4942528735632184,
+      "recall": 0.43288590604026844,
+      "f1": 0.46153846153846156,
+      "confusion_matrix": [
+        [
+          315,
+          132
+        ],
+        [
+          169,
+          129
+        ]
+      ],
+      "n_test_epochs": 745,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9270482603815937,
+      "precision": 0.9896640826873385,
+      "recall": 0.8626126126126126,
+      "f1": 0.9217809867629362,
+      "confusion_matrix": [
+        [
+          443,
+          4
+        ],
+        [
+          61,
+          383
+        ]
+      ],
+      "n_test_epochs": 891,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          336,
+          0
+        ],
+        [
+          0,
+          437
+        ]
+      ],
+      "n_test_epochs": 773,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          446,
+          0
+        ],
+        [
+          0,
+          431
+        ]
+      ],
+      "n_test_epochs": 877,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.8719115933165613,
+    "accuracy_std": 0.11739740555319322,
+    "precision_mean": 0.8589261352596653,
+    "precision_std": 0.15952588897685727,
+    "recall_mean": 0.876667462112181,
+    "recall_std": 0.17169140249640305,
+    "f1_mean": 0.8612626077288704,
+    "f1_std": 0.14971461746555925
+  },
+  "summed_confusion_matrix": [
+    [
+      3601,
+      597
+    ],
+    [
+      460,
+      3721
+    ]
+  ]
+}

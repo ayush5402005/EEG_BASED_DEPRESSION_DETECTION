@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "resnet18",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 0.9027777777777778,
+      "precision": 0.9712041884816754,
+      "recall": 0.8355855855855856,
+      "f1": 0.8983050847457628,
+      "confusion_matrix": [
+        [
+          409,
+          11
+        ],
+        [
+          73,
+          371
+        ]
+      ],
+      "n_test_epochs": 864,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9120631341600902,
+      "precision": 0.9575,
+      "recall": 0.8626126126126126,
+      "f1": 0.9075829383886256,
+      "confusion_matrix": [
+        [
+          426,
+          17
+        ],
+        [
+          61,
+          383
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9050480769230769,
+      "precision": 0.8594847775175644,
+      "recall": 0.9507772020725389,
+      "f1": 0.9028290282902829,
+      "confusion_matrix": [
+        [
+          386,
+          60
+        ],
+        [
+          19,
+          367
+        ]
+      ],
+      "n_test_epochs": 832,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8164924506387921,
+      "precision": 0.7376146788990826,
+      "recall": 0.9640287769784173,
+      "f1": 0.8357588357588358,
+      "confusion_matrix": [
+        [
+          301,
+          143
+        ],
+        [
+          15,
+          402
+        ]
+      ],
+      "n_test_epochs": 861,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9714285714285714,
+      "precision": 0.9668141592920354,
+      "recall": 0.9842342342342343,
+      "f1": 0.9754464285714286,
+      "confusion_matrix": [
+        [
+          311,
+          15
+        ],
+        [
+          7,
+          437
+        ]
+      ],
+      "n_test_epochs": 770,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9783845278725825,
+      "precision": 0.9929078014184397,
+      "recall": 0.963302752293578,
+      "f1": 0.9778812572759022,
+      "confusion_matrix": [
+        [
+          440,
+          3
+        ],
+        [
+          16,
+          420
+        ]
+      ],
+      "n_test_epochs": 879,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.6416107382550336,
+      "precision": 0.554006968641115,
+      "recall": 0.5335570469798657,
+      "f1": 0.5435897435897435,
+      "confusion_matrix": [
+        [
+          319,
+          128
+        ],
+        [
+          139,
+          159
+        ]
+      ],
+      "n_test_epochs": 745,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.978675645342312,
+      "precision": 1.0,
+      "recall": 0.9572072072072072,
+      "f1": 0.9781357882623706,
+      "confusion_matrix": [
+        [
+          447,
+          0
+        ],
+        [
+          19,
+          425
+        ]
+      ],
+      "n_test_epochs": 891,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          336,
+          0
+        ],
+        [
+          0,
+          437
+        ]
+      ],
+      "n_test_epochs": 773,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9977194982896237,
+      "precision": 1.0,
+      "recall": 0.9953596287703016,
+      "f1": 0.9976744186046511,
+      "confusion_matrix": [
+        [
+          446,
+          0
+        ],
+        [
+          2,
+          429
+        ]
+      ],
+      "n_test_epochs": 877,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.910420042068786,
+    "accuracy_std": 0.10479341558331717,
+    "precision_mean": 0.9039532574249913,
+    "precision_std": 0.14108070348978308,
+    "recall_mean": 0.9046665046734341,
+    "recall_std": 0.1340732953394323,
+    "f1_mean": 0.9017203523487604,
+    "f1_std": 0.12984495612269106
+  },
+  "summed_confusion_matrix": [
+    [
+      3821,
+      377
+    ],
+    [
+      351,
+      3830
+    ]
+  ]
+}

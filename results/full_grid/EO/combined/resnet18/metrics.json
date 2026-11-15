@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "resnet18",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          322,
+          0
+        ],
+        [
+          0,
+          442
+        ]
+      ],
+      "n_test_epochs": 764,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.8204819277108434,
+      "precision": 0.7478849407783418,
+      "recall": 1.0,
+      "f1": 0.8557599225556631,
+      "confusion_matrix": [
+        [
+          239,
+          149
+        ],
+        [
+          0,
+          442
+        ]
+      ],
+      "n_test_epochs": 830,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.839340885684861,
+      "precision": 0.7746268656716417,
+      "recall": 0.9904580152671756,
+      "f1": 0.8693467336683417,
+      "confusion_matrix": [
+        [
+          296,
+          151
+        ],
+        [
+          5,
+          519
+        ]
+      ],
+      "n_test_epochs": 971,
+      "n_test_subjects": 7
+    },
+    {
+      "accuracy": 0.9811320754716981,
+      "precision": 0.9795918367346939,
+      "recall": 0.9840546697038725,
+      "f1": 0.9818181818181818,
+      "confusion_matrix": [
+        [
+          400,
+          9
+        ],
+        [
+          7,
+          432
+        ]
+      ],
+      "n_test_epochs": 848,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9244644870349493,
+      "precision": 0.9604938271604938,
+      "recall": 0.884090909090909,
+      "f1": 0.9207100591715977,
+      "confusion_matrix": [
+        [
+          431,
+          16
+        ],
+        [
+          51,
+          389
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          445,
+          0
+        ],
+        [
+          0,
+          528
+        ]
+      ],
+      "n_test_epochs": 973,
+      "n_test_subjects": 7
+    },
+    {
+      "accuracy": 0.9774266365688488,
+      "precision": 0.9838337182448037,
+      "recall": 0.9703872437357631,
+      "f1": 0.9770642201834863,
+      "confusion_matrix": [
+        [
+          440,
+          7
+        ],
+        [
+          13,
+          426
+        ]
+      ],
+      "n_test_epochs": 886,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.6644067796610169,
+      "precision": 0.6620689655172414,
+      "recall": 0.6575342465753424,
+      "f1": 0.6597938144329897,
+      "confusion_matrix": [
+        [
+          300,
+          147
+        ],
+        [
+          150,
+          288
+        ]
+      ],
+      "n_test_epochs": 885,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8143982002249719,
+      "precision": 0.7522768670309654,
+      "recall": 0.9343891402714932,
+      "f1": 0.8335015136226034,
+      "confusion_matrix": [
+        [
+          311,
+          136
+        ],
+        [
+          29,
+          413
+        ]
+      ],
+      "n_test_epochs": 889,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8305084745762712,
+      "precision": 1.0,
+      "recall": 0.6575342465753424,
+      "f1": 0.7933884297520661,
+      "confusion_matrix": [
+        [
+          447,
+          0
+        ],
+        [
+          150,
+          288
+        ]
+      ],
+      "n_test_epochs": 885,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.8852159466933461,
+    "accuracy_std": 0.10423707794977144,
+    "precision_mean": 0.8860777021138183,
+    "precision_std": 0.12742639733089337,
+    "recall_mean": 0.90784484712199,
+    "recall_std": 0.12984674934394289,
+    "f1_mean": 0.889138287520493,
+    "f1_std": 0.10405101722447822
+  },
+  "summed_confusion_matrix": [
+    [
+      3631,
+      615
+    ],
+    [
+      405,
+      4167
+    ]
+  ]
+}

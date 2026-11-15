@@ -1,0 +1,211 @@
+{
+  "config": {
+    "transform": "spwvd",
+    "backbone": "vgg16",
+    "k_folds": 10,
+    "window_sec": 4.0,
+    "overlap": 0.5
+  },
+  "per_fold": [
+    {
+      "accuracy": 0.8877314814814815,
+      "precision": 0.9806094182825484,
+      "recall": 0.7972972972972973,
+      "f1": 0.8795031055900621,
+      "confusion_matrix": [
+        [
+          413,
+          7
+        ],
+        [
+          90,
+          354
+        ]
+      ],
+      "n_test_epochs": 864,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9560315670800451,
+      "precision": 1.0,
+      "recall": 0.9121621621621622,
+      "f1": 0.9540636042402827,
+      "confusion_matrix": [
+        [
+          443,
+          0
+        ],
+        [
+          39,
+          405
+        ]
+      ],
+      "n_test_epochs": 887,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8798076923076923,
+      "precision": 0.8539603960396039,
+      "recall": 0.8937823834196891,
+      "f1": 0.8734177215189873,
+      "confusion_matrix": [
+        [
+          387,
+          59
+        ],
+        [
+          41,
+          345
+        ]
+      ],
+      "n_test_epochs": 832,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.8164924506387921,
+      "precision": 0.73502722323049,
+      "recall": 0.9712230215827338,
+      "f1": 0.8367768595041323,
+      "confusion_matrix": [
+        [
+          298,
+          146
+        ],
+        [
+          12,
+          405
+        ]
+      ],
+      "n_test_epochs": 861,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          326,
+          0
+        ],
+        [
+          0,
+          444
+        ]
+      ],
+      "n_test_epochs": 770,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.981797497155859,
+      "precision": 0.9861111111111112,
+      "recall": 0.9770642201834863,
+      "f1": 0.9815668202764977,
+      "confusion_matrix": [
+        [
+          437,
+          6
+        ],
+        [
+          10,
+          426
+        ]
+      ],
+      "n_test_epochs": 879,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.5812080536912752,
+      "precision": 0.46875,
+      "recall": 0.3523489932885906,
+      "f1": 0.40229885057471265,
+      "confusion_matrix": [
+        [
+          328,
+          119
+        ],
+        [
+          193,
+          105
+        ]
+      ],
+      "n_test_epochs": 745,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.9842873176206509,
+      "precision": 0.9820627802690582,
+      "recall": 0.9864864864864865,
+      "f1": 0.9842696629213483,
+      "confusion_matrix": [
+        [
+          439,
+          8
+        ],
+        [
+          6,
+          438
+        ]
+      ],
+      "n_test_epochs": 891,
+      "n_test_subjects": 6
+    },
+    {
+      "accuracy": 0.9935316946959897,
+      "precision": 0.9886877828054299,
+      "recall": 1.0,
+      "f1": 0.9943117178612059,
+      "confusion_matrix": [
+        [
+          331,
+          5
+        ],
+        [
+          0,
+          437
+        ]
+      ],
+      "n_test_epochs": 773,
+      "n_test_subjects": 5
+    },
+    {
+      "accuracy": 0.8278221208665907,
+      "precision": 0.7422145328719724,
+      "recall": 0.9953596287703016,
+      "f1": 0.8503468780971258,
+      "confusion_matrix": [
+        [
+          297,
+          149
+        ],
+        [
+          2,
+          429
+        ]
+      ],
+      "n_test_epochs": 877,
+      "n_test_subjects": 6
+    }
+  ],
+  "summary_mean_std": {
+    "accuracy_mean": 0.8908709875538378,
+    "accuracy_std": 0.12215531756610983,
+    "precision_mean": 0.8737423244610214,
+    "precision_std": 0.1678769333752114,
+    "recall_mean": 0.8885724193190747,
+    "recall_std": 0.18892727045519878,
+    "f1_mean": 0.8756555220584354,
+    "f1_std": 0.16880205330019327
+  },
+  "summed_confusion_matrix": [
+    [
+      3699,
+      499
+    ],
+    [
+      393,
+      3788
+    ]
+  ]
+}
